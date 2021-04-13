@@ -2,7 +2,7 @@
   "name": "electron-app",
   "version": "0.1.0",
   "description": "Projet dev",
-  "main": "main.js",
+  "main": "src/electron/main.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -48,5 +48,6 @@
         }
       ]
     }
-  }
+  },
+  "private": true
 }
