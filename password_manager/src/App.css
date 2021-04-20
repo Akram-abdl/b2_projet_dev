@@ -1,3 +1,7 @@
+:root {
+  --sidebar-width: 4.5em;
+}
+
 .App {
   text-align: center;
 }
