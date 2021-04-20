@@ -22,7 +22,7 @@ function createWindow() {
   }
 
   win.on('closed', () => win = null);
-
+  
   // Hot Reloading
   if (isDev) {
     // 'node_modules/.bin/electronPath'
@@ -43,16 +43,18 @@ function createWindow() {
   }
 }
 
-app.on('ready', createWindow);
+app.whenReady().then(() => {
+  createWindow()
+
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow()
+    }
+  })
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
-  }
-});
-
-app.on('activate', () => {
-  if (win === null) {
-    createWindow();
   }
 });
