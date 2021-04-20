@@ -1,8 +1,8 @@
 {
-  "name": "my-app",
-  "version": "0.1.1",
-  "author": "Your Name",
-  "description": "React-TypeScript-Electron sample with Create React App and Electron Builder",
+  "name": "password-manager",
+  "version": "0.1.0",
+  "author": "IShungite & Lowhigh",
+  "description": "Password manager",
   "homepage": ".",
   "main": "build/electron/main.js",
   "private": true,
