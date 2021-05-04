@@ -1,45 +1,62 @@
-import { v4 as uuidv4 } from 'uuid';
+import mongoose from 'mongoose';
+import User from '../models/user.js';
 
-let users = [];
-
-export const getUsers = (req: any, res: { send: (arg0: any[]) => void; }) =>{
-    res.send(users);
+export const getUsers = async (req:any, res:any) =>{
+    try {
+        const postMessages = await User.find();
+                
+        res.status(200).json(postMessages);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
 };
 
-export const getUser = (req: { params: { id: string; }; body: { name: string; email: string; password: string; }; }, res: { send: (arg0: string) => void; }) => {
+export const getUser = async (req:any, res:any) => {
     const {id} = req.params;
 
-    const foundUser = users.find((user)=> user.id == id);
-
-    res.send(foundUser);
+    try {
+        const post = await User.findById(id);
+        
+        res.status(200).json(post);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
 };
 
-export const  createUser = (req: { params: { id: string; }; body: { name: string; email: string; password: string; }; }, res: { send: (arg0: string) => void; }) => {
-    const user = req.body;
-
-    users.push({...user, id: uuidv4()});
-
-    res.send(`User with the name ${user.name} added to the database!`);
-};
-
-export const deleteUser = (req: { params: { id: string; }; body: { name: string; email: string; password: string; }; }, res: { send: (arg0: string) => void; }) => {
-    const {id} = req.params;
-
-    users = users.filter((user)=>user.id != id);
-
-    res.send(`User with the ìd ${id} deleted from the database`);
-};
-
-export const patchUser = (req: { params: { id: string; }; body: { name: string; email: string; password: string; }; }, res: { send: (arg0: string) => void; }) => {
-    const {id} = req.params;
-
-    const user = users.find((user)=> user.id == id);
+export const  createUser = async (req:any, res:any) => {
     
-    const {name, email, password} = req.body;
-    
-    if (name) user.name = name;
-    if (email) user.email = email;
-    if (password) user.password = password;
+    const { name, email, password } = req.body;
 
-    res.send(`User with the ìd ${id} has been updated`);
+    const newUser = new User({ name, email, password })
+
+    try {
+        await newUser.save();
+
+        res.status(201).json(newUser);
+    } catch (error) {
+        res.status(409).json({ message: error.message });
+    }
+};
+
+export const patchUser = async (req:any, res:any) => {
+    const { id } = req.params;
+    const { name, email, password } = req.body;
+    
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No user with id: ${id}`);
+
+    const updatedUser = { name, email, password};
+
+    await User.findByIdAndUpdate(id, updatedUser, { new: true });
+
+    res.json(updatedUser);
+};
+
+export const deleteUser = async (req:any, res:any) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No user with id: ${id}`);
+
+    await User.findByIdAndRemove(id);
+
+    res.json({ message: "User deleted successfully." });
 };
