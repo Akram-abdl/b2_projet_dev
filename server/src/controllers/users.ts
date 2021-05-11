@@ -3,9 +3,9 @@ import User from '../models/user.js';
 
 export const getUsers = async (req:any, res:any) =>{
     try {
-        const postMessages = await User.find();
+        const users = await User.find();
                 
-        res.status(200).json(postMessages);
+        res.status(200).json(users);
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
@@ -15,9 +15,9 @@ export const getUser = async (req:any, res:any) => {
     const {id} = req.params;
 
     try {
-        const post = await User.findById(id);
+        const user = await User.findById(id);
         
-        res.status(200).json(post);
+        res.status(200).json(user);
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
