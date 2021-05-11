@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Grid, InputAdornment, IconButton, FormControl, InputLabel, OutlinedInput} from '@material-ui/core';
+import { TextField, Grid, InputAdornment, IconButton, FormControl, InputLabel, OutlinedInput } from '@material-ui/core';
 
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -31,35 +31,35 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 //       );
 //     }
 // }
-  
+
 const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
-    ) => {
+) => {
     event.preventDefault();
 };
 
-const Input = ({ name="", handleChange=()=>{}, label="", half=false, autoFocus=false, type="text", handleShowPassword=()=>{} }) => (
-    <Grid item xs={12} sm={half ? 6 : 12}> 
+const Input = ({ name = "", handleChange = (e: any) => { }, label = "", half = false, autoFocus = false, type = "text", handleShowPassword = () => { } }) => (
+    <Grid item xs={12} sm={half ? 6 : 12}>
         <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-password">{name}</InputLabel>
             <OutlinedInput
-            id="outlined-adornment-password"
-            type={type}
-            onChange={handleChange}
-            autoFocus={autoFocus}
-            endAdornment={ name === 'password' &&
-                <InputAdornment position="end">
-                    <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                    >
-                    {type === 'password' ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
+                name={name}
+                type={type}
+                onChange={handleChange}
+                autoFocus={autoFocus}
+                endAdornment={name === 'password' &&
+                    <InputAdornment position="end">
+                        <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                        >
+                            {type === 'password' ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
                     </InputAdornment>
-            }
-            label={label}
+                }
+                label={label}
             />
         </FormControl>
     </Grid>
