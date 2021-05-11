@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Password from '../models/password.js';
+import Password from '../models/password';
 
 export const getPasswords = async (req:any, res:any) =>{
     try {
@@ -53,6 +53,8 @@ export const patchPassword = async (req:any, res:any) => {
 };
 
 export const deletePassword = async (req:any, res:any) => {
+    // if (!req.userId) return res.json({message: 'Unauthenticated'});
+    
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No password with id: ${id}`);
