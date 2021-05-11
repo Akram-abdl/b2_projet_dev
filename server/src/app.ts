@@ -4,6 +4,7 @@ import identificationsRoutes from './routes/identifications';
 import mongoose from 'mongoose';
 import {CONNECTION_URL, PORT} from './config';
 
+
 const app = express();
 
 app.use(express.json());
@@ -11,6 +12,8 @@ app.use(express.urlencoded({extended:true}));
 
 app.use('/users', usersRoutes);
 app.use('/identifications', identificationsRoutes);
+
+mongoose.set('useCreateIndex', true);
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))

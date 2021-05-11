@@ -1,6 +1,6 @@
 import express from 'express';
 
-import {getIdentifications, getIdentification, createIdentification, patchIdentification, deleteIdentification} from '../controllers/identifications.js';
+import {getIdentifications, getIdentification, createIdentification, patchIdentification, deleteIdentification} from '../controllers/identifications';
 
 import auth from '../middleware/auth';
 
