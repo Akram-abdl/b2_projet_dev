@@ -1,27 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Container } from '@material-ui/core';
+import { HashRouter, Switch, Route } from 'react-router-dom';
+
 import Header from './Header';
+import Home from './components/Home/Home';
+import Auth from './components/Auth/Auth';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <Header/>
-      <div className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </div>
-    </div>
+    <HashRouter>
+		<Container maxWidth="lg">
+			<Switch>
+				<Route path="/" exact component={Auth}/>
+				<Route path="/home" exact component={Home}/>
+			</Switch>
+		</Container>
+	</HashRouter>
   );
 }
 
