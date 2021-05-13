@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Button, Grid, Typography, Container, Box, Avatar, TextField, Link, CssBaseline } from '@material-ui/core';
+import { Button, Grid, Typography, Container, Box, Avatar, TextField, Link } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { signin, signup } from '../../actions/auth';
 
@@ -44,14 +44,15 @@ const Auth = () => {
                 <Avatar className={classes.Icon}>
                     <LockOutlinedIcon />
                 </Avatar>
+
                 <Typography component="h1" variant="h5">{isSignup ? 'Sign up' : 'Sign In'}</Typography>
 
                 <Box component="form" onSubmit={handleSubmit} className={classes.BoxForm} noValidate>
                     {isSignup && <TextField id="name" name="name" label="Name" autoComplete="name" margin="normal" onChange={handleChange} required fullWidth autoFocus/>}
-
                     <TextField id="email" name="email" label="Email Address" autoComplete="email" margin="normal" onChange={handleChange} required fullWidth autoFocus/>
                     <TextField id="password" name="password" label="Password" type="password" autoComplete="current-password" margin="normal" onChange={handleChange} required fullWidth />
                     {isSignup && <TextField id="confirmPassword" name="confirmPassword" label="Repeat Password" type="password" autoComplete="current-password" margin="normal" onChange={handleChange} required fullWidth />}
+                    
                     <Button type="submit" fullWidth variant="contained" className={classes.ButtonSubmit}>
                         {isSignup ? 'Sign up' : 'Sign In'}
                     </Button>

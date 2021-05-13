@@ -1,13 +1,11 @@
-import { red } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   BoxContainer: {
-    marginTop: 20,
+    marginTop: 30,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
-
   },
   Icon: {
     marginBottom: 5,
@@ -18,7 +16,7 @@ export default makeStyles((theme) => ({
     marginTop: 1,
   },
   ButtonSubmit: {
-    marginTop: 25, 
-    marginBottom: 20 
+    marginTop: 25,
+    marginBottom: 20
   }
 }));
