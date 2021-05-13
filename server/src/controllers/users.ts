@@ -35,7 +35,7 @@ export const signup = async (req:any, res:any) => {
     
         if(userExists) return res.status(400).json({message: "User already exists."})
     
-        if (password === confirmPassword) return res.status(400).json({message: "Passwords don't match."})
+        if (password !== confirmPassword) return res.status(400).json({message: "Passwords don't match."})
     
         const hashedPassword = await sha256(password);
     

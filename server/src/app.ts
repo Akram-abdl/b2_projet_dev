@@ -3,17 +3,13 @@ import usersRoutes from './routes/users';
 import identificationsRoutes from './routes/identifications';
 import mongoose from 'mongoose';
 import { CONNECTION_URL, PORT } from './config';
-
+import cors from 'cors';
 
 const app = express();
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*"),
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"),
-    next()
-}),
+app.use(cors());
 
-  app.use(express.json());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/users', usersRoutes);
@@ -22,6 +18,8 @@ app.use('/identifications', identificationsRoutes);
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, })
   .then(() => app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
   .catch((error) => console.log(`${error} did not connect`));
+
+mongoose.set('useFindAndModify', false);
 
 
 // app.get('/', (req, res) => {
