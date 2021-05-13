@@ -5,36 +5,98 @@ import { useHistory } from 'react-router-dom';
 import { Button, Grid, Typography, Container, Box, Avatar, TextField, Link } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { signin, signup } from '../../actions/auth';
+import { useForm, Form } from '../Form/Form';
+import Input from "../Controls/Input";
 
 import useStyles from './styles';
 
-const initialState = { name: '', email: '', password: '' };
+interface ISignIn {
+    email:string,
+    password:string
+}
+interface ISignUp extends ISignIn {
+    name:string,
+    confirmPassword:string
+}
+
+const initialFValues: ISignUp = { name: '', email: '', password: '', confirmPassword: '' };
 
 const Auth = () => {
     const [isSignup, setIsSignup] = useState(false);
     // const [showPassword, setShowPassword] = useState(false);
-    const [formData, setFormData] = useState(initialState);
     const dispatch = useDispatch();
     const history = useHistory();
     const classes = useStyles();
+
+    const validateForm = (fieldValues = formValues) => {
+        let errors = { ...formErrors }
+
+        if (isSignup) {
+            if ('name' in fieldValues)
+            {
+                if (fieldValues.name === "") errors.name = "This field is required.";
+                else errors.name="";
+            }
+
+            if ('confirmPassword' in fieldValues)
+            {
+                if (fieldValues.confirmPassword === "") errors.confirmPassword = "This field is required.";
+                else if (fieldValues.confirmPassword.length < 10) errors.confirmPassword = "Minimum 10 characters required.";
+                else if (fieldValues.confirmPassword !== (document.getElementById("password") as HTMLInputElement).value) errors.confirmPassword = "Confirm password don't match";
+                else errors.confirmPassword = "";
+            }
+        } else {
+            errors.confirmPassword = "";
+            errors.name = "";
+        }
+
+        if ('email' in fieldValues)
+        {
+            if (fieldValues.email === "") errors.email = "This field is required.";
+            else if ( !(/$^|.+@.+..+/).test(fieldValues.email) ) errors.email = "Email is not valid.";
+            else errors.email = "";
+        }
+        if ('password' in fieldValues)
+        {
+            if (fieldValues.password === "") errors.password = "This field is required.";
+            else if (fieldValues.password.length < 10) errors.password = "Minimum 10 characters required.";
+            else errors.password = "";
+        }
+
+        setFormErrors({
+            ...errors
+        })
+
+        if (fieldValues == formValues)
+            return Object.values(errors).every(error => error == "")
+    }
+
+    const {
+        formValues,
+        setFormValues,
+        formErrors,
+        setFormErrors,
+        handleInputChange,
+        resetForm
+    } = useForm(initialFValues, true, validateForm);
 
     // const handleShowPassword = () => setShowPassword((prevShowPassword: Boolean) => !prevShowPassword)
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
 
-        console.log(formData)
-
-        if (isSignup) {
-            dispatch(signup(formData, history));
-        } else {
-            dispatch(signin(formData, history));
+        if (validateForm()){
+            if (isSignup) {
+                dispatch(signup(formValues, history));
+            } else {
+                dispatch(signin(formValues, history));
+            }
         }
     };
-    const handleChange = (e: any) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const switchMode = () => {
-        setIsSignup((prevIsSignup: Boolean) => !prevIsSignup);
+        setIsSignup(!isSignup);
+        resetForm();
         // setShowPassword(false);
     };
 
@@ -47,11 +109,13 @@ const Auth = () => {
 
                 <Typography component="h1" variant="h5">{isSignup ? 'Sign up' : 'Sign In'}</Typography>
 
-                <Box component="form" onSubmit={handleSubmit} className={classes.BoxForm} noValidate>
-                    {isSignup && <TextField id="name" name="name" label="Name" autoComplete="name" margin="normal" onChange={handleChange} required fullWidth autoFocus/>}
-                    <TextField id="email" name="email" label="Email Address" autoComplete="email" margin="normal" onChange={handleChange} required fullWidth autoFocus/>
-                    <TextField id="password" name="password" label="Password" type="password" autoComplete="current-password" margin="normal" onChange={handleChange} required fullWidth />
-                    {isSignup && <TextField id="confirmPassword" name="confirmPassword" label="Repeat Password" type="password" autoComplete="current-password" margin="normal" onChange={handleChange} required fullWidth />}
+                <Form onSubmit={handleSubmit}>
+
+                    {isSignup && <Input id="name" name="name" label="Name" value={formValues.name} autoComplete="name" required={true} fullWidth={true} autofocus={true} onChange={handleInputChange} error={formErrors.name} />}
+                    
+                    <Input id="email" name="email" label="Email Address" value={formValues.email} autoComplete="email" required={true} fullWidth={true} onChange={handleInputChange} error={formErrors.email} />
+                    <Input id="password" name="password" label="Password" type="password" value={formValues.password} autoComplete="current-password" required={true} fullWidth={true} onChange={handleInputChange} error={formErrors.password} />
+                    {isSignup && <Input id="confirmPassword" name="confirmPassword" label="Repeat password" type="password" value={formValues.confirmPassword} autoComplete="current-password" required={true} fullWidth={true} onChange={handleInputChange} error={formErrors.confirmPassword} />}
                     
                     <Button type="submit" fullWidth variant="contained" className={classes.ButtonSubmit}>
                         {isSignup ? 'Sign up' : 'Sign In'}
@@ -70,7 +134,7 @@ const Auth = () => {
                         </Grid>
                     </Grid>
 
-                </Box>
+                </Form>
             </Box>
         </Container>
     );

@@ -11,10 +11,6 @@ export default makeStyles((theme) => ({
     marginBottom: 5,
     backgroundColor: theme.palette.secondary.main,
   },
-  BoxForm: {
-    width: '100%', /* Fix IE11 issue. */
-    marginTop: 1,
-  },
   ButtonSubmit: {
     marginTop: 25,
     marginBottom: 20
