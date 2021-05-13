@@ -8,19 +8,17 @@ import { signin, signup } from '../../actions/auth';
 
 import useStyles from './styles';
 
-import Input from './Input';
-
 const initialState = { name: '', email: '', password: '' };
 
 const Auth = () => {
     const [isSignup, setIsSignup] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
+    // const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState(initialState);
     const dispatch = useDispatch();
     const history = useHistory();
     const classes = useStyles();
 
-    const handleShowPassword = () => setShowPassword((prevShowPassword: Boolean) => !prevShowPassword)
+    // const handleShowPassword = () => setShowPassword((prevShowPassword: Boolean) => !prevShowPassword)
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
@@ -37,25 +35,24 @@ const Auth = () => {
 
     const switchMode = () => {
         setIsSignup((prevIsSignup: Boolean) => !prevIsSignup);
-        setShowPassword(false);
+        // setShowPassword(false);
     };
 
     return (
         <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <Box sx={{mt: 5,display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <Box className={classes.BoxContainer}>
+                <Avatar className={classes.Icon}>
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">{isSignup ? 'Sign up' : 'Sign In'}</Typography>
 
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{width: '100%', /* Fix IE11 issue. */ mt: 1,}}>
+                <Box component="form" onSubmit={handleSubmit} className={classes.BoxForm} noValidate>
                     {isSignup && <TextField id="name" name="name" label="Name" autoComplete="name" margin="normal" onChange={handleChange} required fullWidth autoFocus/>}
 
                     <TextField id="email" name="email" label="Email Address" autoComplete="email" margin="normal" onChange={handleChange} required fullWidth autoFocus/>
                     <TextField id="password" name="password" label="Password" type="password" autoComplete="current-password" margin="normal" onChange={handleChange} required fullWidth />
                     {isSignup && <TextField id="confirmPassword" name="confirmPassword" label="Repeat Password" type="password" autoComplete="current-password" margin="normal" onChange={handleChange} required fullWidth />}
-                    <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                    <Button type="submit" fullWidth variant="contained" className={classes.ButtonSubmit}>
                         {isSignup ? 'Sign up' : 'Sign In'}
                     </Button>
 
