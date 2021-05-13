@@ -2,12 +2,12 @@ import jwt from 'jsonwebtoken';
 import {SECRET_KEY} from '../config';
 
 
-const auth = async (req, res, next) => {
+const auth = async (req:any, res:any, next:any) => {
     try {
         const token = req.headers.authorization.split(" ")[1];
         const isCustomAuth = token.length < 500;
 
-        let decodedData;
+        let decodedData:any;
 
         if (token && isCustomAuth) {
             decodedData = jwt.verify(token, SECRET_KEY);

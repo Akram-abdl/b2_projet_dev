@@ -6,7 +6,8 @@ import auth from '../middleware/auth';
 
 const router = express.Router();
 
-// All routes in here are starting with /identification
+// All routes in here are starting with /identifications
+
 router.get('/', auth, getIdentifications);
 router.get('/:id', auth, getIdentification);
 router.post('/', auth, createIdentification);

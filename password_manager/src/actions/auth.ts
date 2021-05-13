@@ -10,7 +10,7 @@ export const signin = (formData: IUser, history: any) => async (dispatch: any) =
 
         dispatch({ type: actionTypes.AUTH, data });
 
-        history.push('/');
+        history.push('/home');
     } catch (error) {
         console.log(error);
     }
@@ -23,7 +23,7 @@ export const signup = (formData: IUser, history: any) => async (dispatch: any) =
 
         dispatch({ type: actionTypes.AUTH, data });
 
-        history.push('/');
+        history.push('/home');
     } catch (error) {
         console.log(error);
     }

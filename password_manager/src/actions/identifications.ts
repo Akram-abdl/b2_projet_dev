@@ -1,7 +1,7 @@
 import actionTypes from '../constants/actionTypes';
 import * as api from '../api/index';
 
-export const getIdentifications = (user_id:number) => async (dispatch:any) => {
+export const getIdentifications = (user_id:string) => async (dispatch:any) => {
   try {
     const { data } = await api.fetchIdentifications(user_id);
 
@@ -21,7 +21,7 @@ export const createIdentification = (identification:any) => async (dispatch:any)
   }
 };
 
-export const updateIdentification = (id:number, identification:any) => async (dispatch:any) => {
+export const updateIdentification = (id:string, identification:any) => async (dispatch:any) => {
   try {
     const { data } = await api.patchIdentification(id, identification);
 
@@ -31,7 +31,7 @@ export const updateIdentification = (id:number, identification:any) => async (di
   }
 };
 
-export const deleteIdentification = (id:number) => async (dispatch:any) => {
+export const deleteIdentification = (id:string) => async (dispatch:any) => {
   try {
     await api.deleteIdentification(id);
 

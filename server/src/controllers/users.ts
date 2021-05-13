@@ -14,7 +14,7 @@ export const signin = async (req:any, res:any) => {
 
         if(!existingUser) return res.status(404).json({message: "User don't exist."})
 
-        const isPasswordCorrect = await sha256(password) === existingUser.password;
+        const isPasswordCorrect = String(sha256(password)) === existingUser.password;
 
         if (!isPasswordCorrect) return res.status(400).json({message: "Invalid credentials."});
 
