@@ -2,7 +2,6 @@ import React from 'react';
 import { Container } from '@material-ui/core';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 
-import Header from './Header';
 import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth';
 

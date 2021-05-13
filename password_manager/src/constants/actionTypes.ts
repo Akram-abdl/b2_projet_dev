@@ -1,8 +1,8 @@
 enum actionTypes {
-    CREATE,
-    UPDATE,
-    DELETE,
     FETCH_ALL,
+    CREATE,
+    PATCH,
+    DELETE,
 
     AUTH,
     LOGOUT
