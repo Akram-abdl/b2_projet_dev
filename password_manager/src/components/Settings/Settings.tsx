@@ -1,21 +1,13 @@
 import { Box, Typography } from "@material-ui/core";
-import { useSelector } from "react-redux";
 
 import useStyles from "./styles";
-import Identification from "../../models/identifications";
 
-import { RootState } from "../../reducers";
-
-const Identifications = () => {
+const Settings = () => {
   const classes = useStyles();
-  const identifications = useSelector((state: RootState) => state.identifications);
-
-  console.log("identifications");
-  console.log(identifications);
 
   return (
     <Box>
-      <Typography variant="h1">Identifications</Typography>
+      <Typography variant="h1">Settings</Typography>
       <Typography paragraph>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor
         purus non enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum quisque
@@ -25,13 +17,7 @@ const Identifications = () => {
         arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie ac.
       </Typography>
     </Box>
-    // <Box>
-    // <Typography variant="h1" className={classes.toolbar}>
-    //     Identifications
-    // </Typography>
-    //     {identifications && identifications.map((identification: any) => <Typography>Hello</Typography>)}
-    // </Box>
   );
 };
 
-export default Identifications;
+export default Settings;
