@@ -9,9 +9,9 @@ import { getIdentifications } from "../../actions/identifications";
 import Identifications from "../Identifications/Identifications";
 import Account from "../Account/Account";
 import Settings from "../Settings/Settings";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: { maxWidth: "100%" },
 }));
 
