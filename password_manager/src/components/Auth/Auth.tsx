@@ -4,21 +4,17 @@ import { useHistory } from "react-router-dom";
 import { Button, Grid, Typography, Container, Box, Avatar, TextField, Link, CssBaseline } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { signin, signup } from "../../actions/auth";
-import { useForm, Form } from "../Form/Form";
+import { useForm, Form } from "../Controls/Form";
 import Input from "../Controls/Input";
 
 import useStyles from "./styles";
 
-interface ISignIn {
+interface ISignUpForm {
+  name: string;
   email: string;
   password: string;
-}
-interface ISignUp extends ISignIn {
-  name: string;
   confirmPassword: string;
 }
-
-const initialFValues: ISignUp = { name: "", email: "", password: "", confirmPassword: "" };
 
 const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
@@ -26,6 +22,7 @@ const Auth = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
+  const initialFValues: ISignUpForm = { name: "", email: "", password: "", confirmPassword: "" };
 
   const validateForm = (fieldValues = formValues) => {
     let errors = { ...formErrors };
