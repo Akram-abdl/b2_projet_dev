@@ -71,7 +71,7 @@ const Menu = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" noWrap>
             Password manager
           </Typography>
         </Toolbar>
@@ -105,10 +105,10 @@ const Menu = () => {
           })}
         </List>
       </Drawer>
-      <Box className={classes.content}>
+      <main className={classes.content}>
         <div className={classes.toolbar} />
         {items[currentPage].content}
-      </Box>
+      </main>
     </Box>
   );
 };

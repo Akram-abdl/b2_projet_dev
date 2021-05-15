@@ -31,7 +31,6 @@ export default makeStyles((theme) => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: "nowrap",
-    boxSizing: "border-box",
   },
   drawerOpen: {
     width: drawerWidth,
@@ -46,9 +45,9 @@ export default makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: "hidden",
-    width: `calc(${theme.spacing(7)} + 1px)`,
+    width: theme.spacing(7) + 1,
     [theme.breakpoints.up("sm")]: {
-      width: `calc(${theme.spacing(9)} + 1px)`,
+      width: theme.spacing(9) + 1,
     },
   },
   toolbar: {

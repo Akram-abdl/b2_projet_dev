@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Button, Grid, Typography, Container, Box, Avatar, TextField, Link } from "@material-ui/core";
+import { Button, Grid, Typography, Container, Box, Avatar, TextField, Link, CssBaseline } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { signin, signup } from "../../actions/auth";
 import { useForm, Form } from "../Form/Form";
@@ -91,15 +91,13 @@ const Auth = () => {
   return (
     <Container component="main" maxWidth="xs">
       <Box className={classes.BoxContainer}>
-        <Avatar className={classes.Icon}>
+        <Avatar className={classes.Avatar}>
           <LockOutlinedIcon />
         </Avatar>
-
         <Typography component="h1" variant="h5">
           {isSignup ? "Sign up" : "Sign In"}
         </Typography>
-
-        <Form onSubmit={handleSubmit}>
+        <Form className={classes.Form} onSubmit={handleSubmit} noValidate>
           {isSignup && (
             <Input
               id="name"
@@ -114,7 +112,6 @@ const Auth = () => {
               error={formErrors.name}
             />
           )}
-
           <Input
             id="email"
             name="email"
@@ -153,10 +150,9 @@ const Auth = () => {
             />
           )}
 
-          <Button type="submit" fullWidth variant="contained" className={classes.ButtonSubmit}>
+          <Button type="submit" fullWidth variant="contained" color="primary" className={classes.ButtonSubmit}>
             {isSignup ? "Sign up" : "Sign In"}
           </Button>
-
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
