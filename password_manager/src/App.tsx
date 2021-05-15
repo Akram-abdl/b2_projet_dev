@@ -8,8 +8,8 @@ const App: React.FC = () => {
   return (
     <HashRouter>
       <Switch>
-        <Route exact path="/" component={Home} />
-        {/* <Route exact path="/" component={Auth} /> */}
+        {/* <Route exact path="/" component={Home} /> */}
+        <Route exact path="/" component={Auth} />
         <Route exact path="/home" component={Home} />
       </Switch>
     </HashRouter>

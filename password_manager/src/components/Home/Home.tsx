@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Container } from "@material-ui/core";
 import { Switch, Route } from "react-router-dom";
@@ -23,9 +23,9 @@ const Home = () => {
   //   console.log("user");
   //   console.log(user?.result);
 
-  useEffect(() => {
-    dispatch(getIdentifications(user?.result?._id));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getIdentifications(user?.result?._id));
+  // }, [dispatch]);
 
   return (
     <Container component="main" className={classes.root}>
