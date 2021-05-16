@@ -51,9 +51,8 @@ const NewIdentificationDialog = (props: any) => {
       } else {
         dispatch(createIdentification(formValues));
       }
+      props.setDialogOpen(false);
     }
-
-    // props.setDialogOpen(false);
   };
 
   return (

@@ -6,9 +6,18 @@ import identificationImg from "../../../assets/identification.png";
 import MenuGrow from "../../Controls/MenuGrow";
 import useStyles from "./styles";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { useDispatch } from "react-redux";
+import { deleteIdentification } from "../../../actions/identifications";
 
 const Identification = (props: any) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const handleDelete = (e: React.MouseEvent<any>) => {
+    e.preventDefault();
+
+    dispatch(deleteIdentification(props.currentIdentification._id));
+  };
 
   return (
     <Card className={classes.Root}>
@@ -28,7 +37,7 @@ const Identification = (props: any) => {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <IconButton className={classes.DeleteButton}>
+      <IconButton className={classes.DeleteButton} onClick={handleDelete}>
         <DeleteIcon className={classes.DeleteIcon} />
       </IconButton>
     </Card>

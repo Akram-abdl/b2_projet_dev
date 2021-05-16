@@ -30,7 +30,7 @@ const Identifications = () => {
         Add identification
       </Button>
       <Grid container spacing={2}>
-        {!identifications ? (
+        {!identifications || identifications.length === 0 ? (
           <Typography>No identification</Typography>
         ) : (
           identifications.map((item: IIdentification) => (
