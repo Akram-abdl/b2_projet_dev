@@ -20,7 +20,7 @@ interface Props {
   autofocus?: boolean;
 }
 
-export default function Input(props: Props) {
+const Input = (props: Props) => {
   const args: AllPropsRequired<Props> = {
     ...props,
     type: props.type !== undefined ? props.type : "text",
@@ -48,24 +48,6 @@ export default function Input(props: Props) {
       {...(props.error && { error: true, helperText: props.error })}
     />
   );
-}
+};
 
-// export default function Input(props:{id:string, name:string, label:string, value:string, autoComplete:string, required:boolean,fullWidth:boolean,autofocus:boolean, onChange:(e:any)=>void, error:string}) {
-
-//     const { id, name, label, value,autoComplete, onChange, required=false, fullWidth=false, autofocus=false, error=null} = props;
-//     return (
-//         <TextField
-//             id={id}
-//             name={name}
-//             label={label}
-//             value={value}
-//             autoComplete={autoComplete}
-//             margin="normal"
-//             required={required}
-//             fullWidth={fullWidth}
-//             autoFocus={autofocus}
-//             onChange={onChange}
-//             {...(error && {error:true,helperText:error})}
-//         />
-//     )
-// }
+export default Input;

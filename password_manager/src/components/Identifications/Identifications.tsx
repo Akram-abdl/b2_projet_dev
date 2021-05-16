@@ -37,33 +37,8 @@ const Identifications = () => {
           </Grid>
         ))}
       </Grid>
-
       <NewIdentificationDialog open={dialogOpen} onClose={handleDialogClose} />
-
-      {/* <Dialog open={dialogOpen} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here. We will send updates occasionally.
-          </DialogContentText>
-          <TextField autoFocus margin="dense" id="name" label="Email Address" type="email" fullWidth />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDialogClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleDialogClose} color="primary">
-            Add
-          </Button>
-        </DialogActions>
-      </Dialog> */}
     </Box>
-    // <Box>
-    // <Typography variant="h1" className={classes.toolbar}>
-    //     Identifications
-    // </Typography>
-    //     {identifications && identifications.map((identification: any) => <Typography>Hello</Typography>)}
-    // </Box>
   );
 };
 

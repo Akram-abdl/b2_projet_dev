@@ -72,7 +72,7 @@ const NewIdentificationDialog = (props: any) => {
                 fullWidth={true}
                 onChange={handleInputChange}
                 error={formErrors.username}
-              />{" "}
+              />
             </Grid>
             <Grid item xs={12}>
               <Input
@@ -84,7 +84,7 @@ const NewIdentificationDialog = (props: any) => {
                 fullWidth={true}
                 onChange={handleInputChange}
                 error={formErrors.email}
-              />{" "}
+              />
             </Grid>
             <Grid item xs={12}>
               <Input
