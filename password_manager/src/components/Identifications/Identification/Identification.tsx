@@ -7,7 +7,7 @@ import MenuGrow from "../../Controls/MenuGrow";
 import useStyles from "./styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-const Identification = () => {
+const Identification = (props: any) => {
   const classes = useStyles();
 
   return (
@@ -21,14 +21,13 @@ const Identification = () => {
         <CardMedia className={classes.Media} image={identificationImg} title="Contemplative Reptile" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h3">
-            Google
+            {props.currentIdentification.site}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            test@gmail.com
+            {props.currentIdentification.username || props.currentIdentification.email}
           </Typography>
         </CardContent>
       </CardActionArea>
-      {/* <MenuGrow /> */}
       <IconButton className={classes.DeleteButton}>
         <DeleteIcon className={classes.DeleteIcon} />
       </IconButton>

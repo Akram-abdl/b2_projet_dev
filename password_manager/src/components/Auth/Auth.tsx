@@ -67,7 +67,7 @@ const Auth = () => {
 
   // const handleShowPassword = () => setShowPassword((prevShowPassword: Boolean) => !prevShowPassword)
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.MouseEvent<any>) => {
     e.preventDefault();
 
     if (validateForm()) {

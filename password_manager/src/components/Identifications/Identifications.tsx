@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Typography, Grid, Button, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from "@material-ui/core";
 import { useSelector } from "react-redux";
 
@@ -7,18 +7,17 @@ import useStyles from "./styles";
 import { RootState } from "../../reducers";
 import Identification from "./Identification/Identification";
 import NewIdentificationDialog from "./NewIdentificationDialog/NewIdentificationDialog";
+import IIdentification from "../../models/identification";
 
 const Identifications = () => {
   const classes = useStyles();
-  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const identifications = useSelector((state: RootState) => state.identifications);
 
-  const handleClickDialogOpen = () => {
-    setDialogOpen(true);
-  };
+  const handleClickDialogOpen = (e: React.MouseEvent<any>) => {
+    e.preventDefault();
 
-  const handleDialogClose = () => {
-    setDialogOpen(false);
+    setDialogOpen(true);
   };
 
   console.log("identifications");
@@ -31,13 +30,18 @@ const Identifications = () => {
         Add identification
       </Button>
       <Grid container spacing={2}>
-        {["test1", "test2", "test3", "test4"].map((item) => (
-          <Grid item xs={12} sm={5} lg={4} key={item}>
-            <Identification />
-          </Grid>
-        ))}
+        {!identifications ? (
+          <Typography>No identification</Typography>
+        ) : (
+          identifications.map((item: IIdentification) => (
+            <Grid item xs={12} sm={5} lg={4} key={item._id}>
+              <Identification currentIdentification={item} />
+            </Grid>
+          ))
+        )}
+        {}
       </Grid>
-      <NewIdentificationDialog open={dialogOpen} onClose={handleDialogClose} />
+      <NewIdentificationDialog open={dialogOpen} setDialogOpen={setDialogOpen} />
     </Box>
   );
 };

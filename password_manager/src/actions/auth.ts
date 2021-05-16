@@ -1,31 +1,28 @@
-import actionTypes from '../constants/actionTypes';
-import * as api from '../api/index';
+import actionTypes from "../constants/actionTypes";
+import * as api from "../api/index";
 
-import IUser from '../models/user';
-
+import IUser from "../models/user";
 
 export const signin = (formData: IUser, history: any) => async (dispatch: any) => {
-    try {
-        const { data } = await api.signIn(formData);
+  try {
+    const { data } = await api.signIn(formData);
 
-        dispatch({ type: actionTypes.AUTH, data });
+    dispatch({ type: actionTypes.AUTH, data });
 
-        history.push('/home');
-    } catch (error) {
-        console.log(error);
-    }
-}
+    history.push("/home");
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const signup = (formData: IUser, history: any) => async (dispatch: any) => {
-    try {
+  try {
+    const { data } = await api.signUp(formData);
 
-        const { data } = await api.signUp(formData);
+    dispatch({ type: actionTypes.AUTH, data });
 
-        dispatch({ type: actionTypes.AUTH, data });
-
-        history.push('/home');
-    } catch (error) {
-        console.log(error);
-    }
-
-}
+    history.push("/home");
+  } catch (error) {
+    console.log(error);
+  }
+};

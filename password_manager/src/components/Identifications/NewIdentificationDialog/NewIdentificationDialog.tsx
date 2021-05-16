@@ -1,22 +1,20 @@
 import React from "react";
-import { Grid, Button, TextField, Dialog, DialogTitle, DialogContent, DialogActions } from "@material-ui/core";
+import { Grid, Button, Dialog, DialogTitle, DialogContent, DialogActions } from "@material-ui/core";
 
 import useStyles from "./styles";
 import Input from "../../Controls/Input";
 import { useForm, Form } from "../../Controls/Form";
-
-interface IIdentificationForm {
-  site: string;
-  username: string;
-  email: string;
-  password: string;
-}
+import { useDispatch } from "react-redux";
+import { updateIdentification, createIdentification } from "../../../actions/identifications";
+import IIdentification from "../../../models/identification";
 
 const NewIdentificationDialog = (props: any) => {
   const classes = useStyles();
-  const initialFValues: IIdentificationForm = { site: "", username: "", email: "", password: "" };
+  const dispatch = useDispatch();
 
-  const validateForm = (fieldValues = formValues) => {
+  const initialFValues: IIdentification = { site: "", username: "", email: "", password: "" };
+
+  const validateForm = (fieldValues: IIdentification = formValues) => {
     let errors = { ...formErrors };
 
     if ("site" in fieldValues) {
@@ -37,9 +35,25 @@ const NewIdentificationDialog = (props: any) => {
 
   const { formValues, setFormValues, formErrors, setFormErrors, handleInputChange, resetForm } = useForm(initialFValues, true, validateForm);
 
-  const handleDialogClose = () => {
+  const handleDialogClose = (e: React.MouseEvent<any>) => {
+    e.preventDefault();
+
     resetForm();
-    props.onClose();
+    props.setDialogOpen(false);
+  };
+
+  const handleDialogSubmit = (e: React.MouseEvent<any>) => {
+    e.preventDefault();
+
+    if (validateForm()) {
+      if (props.currentIdentification) {
+        dispatch(updateIdentification(props.currentIdentification._id, formValues));
+      } else {
+        dispatch(createIdentification(formValues));
+      }
+    }
+
+    // props.setDialogOpen(false);
   };
 
   return (
@@ -91,6 +105,7 @@ const NewIdentificationDialog = (props: any) => {
                 id="password"
                 name="password"
                 label="Password"
+                type="password"
                 value={formValues.password}
                 autoComplete="password"
                 required={true}
@@ -105,7 +120,7 @@ const NewIdentificationDialog = (props: any) => {
           <Button onClick={handleDialogClose} color="secondary">
             Cancel
           </Button>
-          <Button onClick={handleDialogClose} color="primary">
+          <Button onClick={handleDialogSubmit} color="primary">
             Add
           </Button>
         </DialogActions>
