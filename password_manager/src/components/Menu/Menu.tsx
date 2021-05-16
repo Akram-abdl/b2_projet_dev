@@ -13,6 +13,7 @@ import {
   ListItemIcon,
   ListItemText,
   Box,
+  Button,
 } from "@material-ui/core";
 
 import { useTheme } from "@material-ui/core/styles";
@@ -28,16 +29,21 @@ import useStyles from "./styles";
 import Identifications from "../Identifications/Identifications";
 import Account from "../Account/Account";
 import Settings from "../Settings/Settings";
+import { logout } from "../../actions/auth";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 
-const Menu = () => {
+const Menu = (props: any) => {
   const classes = useStyles();
   const theme = useTheme();
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [open, setOpen] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(0);
 
   const items = [
-    { text: "Identifications", icon: <ListAltIcon />, onClick: () => setCurrentPage(0), content: <Identifications /> },
+    { text: "Identifications", icon: <ListAltIcon />, onClick: () => setCurrentPage(0), content: <Identifications user={props.user} /> },
     { text: "Account", icon: <AccountCircleIcon />, onClick: () => setCurrentPage(1), content: <Account /> },
     { text: "Settings", icon: <SettingsIcon />, onClick: () => setCurrentPage(2), content: <Settings /> },
   ];
@@ -74,6 +80,7 @@ const Menu = () => {
           <Typography variant="h6" noWrap>
             Password manager
           </Typography>
+          <Button onClick={() => logout(props.setUser, history, dispatch)}>Logout</Button>
         </Toolbar>
       </AppBar>
       <Drawer

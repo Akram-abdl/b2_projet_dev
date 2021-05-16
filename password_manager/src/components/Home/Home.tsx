@@ -1,15 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Container } from "@material-ui/core";
-import { Switch, Route } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import decode from "jwt-decode";
 
 import Menu from "../Menu/Menu";
 
-import { getIdentifications } from "../../actions/identifications";
-import Identifications from "../Identifications/Identifications";
-import Account from "../Account/Account";
-import Settings from "../Settings/Settings";
 import { makeStyles, Theme } from "@material-ui/core/styles";
+import { logout } from "../../actions/auth";
+import { getIdentifications } from "../../actions/identifications";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: { maxWidth: "100%" },
@@ -18,18 +17,26 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Home = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const user = JSON.parse(localStorage.getItem("profile") || "");
+  const history = useHistory();
+  const location = useLocation();
 
-  //   console.log("user");
-  //   console.log(user?.result);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile") || ""));
 
-  // useEffect(() => {
-  //   dispatch(getIdentifications(user?.result?._id));
-  // }, [dispatch]);
+  useEffect(() => {
+    const token = user?.token;
+
+    if (token) {
+      const decodedToken: any = decode(token);
+
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout(setUser, history, dispatch);
+    }
+
+    setUser(JSON.parse(localStorage.getItem("profile") || ""));
+  }, [location]);
 
   return (
     <Container component="main" className={classes.root}>
-      <Menu />
+      <Menu user={user} setUser={setUser} />
     </Container>
   );
 };

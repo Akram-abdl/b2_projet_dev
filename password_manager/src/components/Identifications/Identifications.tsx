@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography, Grid, Button, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from "@material-ui/core";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import useStyles from "./styles";
 
@@ -8,9 +8,12 @@ import { RootState } from "../../reducers";
 import Identification from "./Identification/Identification";
 import NewIdentificationDialog from "./NewIdentificationDialog/NewIdentificationDialog";
 import IIdentification from "../../models/identification";
+import { getIdentifications } from "../../actions/identifications";
 
-const Identifications = () => {
+const Identifications = (props: any) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
   const [dialogOpen, setDialogOpen] = useState(false);
   const identifications = useSelector((state: RootState) => state.identifications);
 
@@ -20,8 +23,9 @@ const Identifications = () => {
     setDialogOpen(true);
   };
 
-  console.log("identifications");
-  console.log(identifications);
+  useEffect(() => {
+    dispatch(getIdentifications(props.user?.result?._id));
+  }, [dispatch]);
 
   return (
     <Box>

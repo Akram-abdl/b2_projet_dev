@@ -26,3 +26,11 @@ export const signup = (formData: IUser, history: any) => async (dispatch: any) =
     console.log(error);
   }
 };
+
+export const logout = (setUser: any, history: any, dispatch: any) => {
+  dispatch({ type: actionTypes.LOGOUT });
+
+  history.push("/");
+
+  setUser(null);
+};
