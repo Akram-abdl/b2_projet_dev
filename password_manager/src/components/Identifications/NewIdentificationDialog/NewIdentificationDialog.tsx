@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid, Button, Dialog, DialogTitle, DialogContent, DialogActions } from "@material-ui/core";
+import AES from "crypto-js/aes";
 
 import useStyles from "./styles";
 import Input from "../../Controls/Input";
@@ -46,10 +47,12 @@ const NewIdentificationDialog = (props: any) => {
     e.preventDefault();
 
     if (validateForm()) {
+      const encryptedPassword = AES.encrypt(formValues.password, props.user.passphrase).toString();
+
       if (props.currentIdentification) {
-        dispatch(updateIdentification(props.currentIdentification._id, formValues));
+        dispatch(updateIdentification(props.currentIdentification._id, { ...formValues, password: encryptedPassword }));
       } else {
-        dispatch(createIdentification(formValues));
+        dispatch(createIdentification({ ...formValues, password: encryptedPassword }));
       }
       props.setDialogOpen(false);
     }

@@ -45,7 +45,7 @@ const Identifications = (props: any) => {
         )}
         {}
       </Grid>
-      <NewIdentificationDialog open={dialogOpen} setDialogOpen={setDialogOpen} />
+      <NewIdentificationDialog user={props.user?.result} open={dialogOpen} setDialogOpen={setDialogOpen} />
     </Box>
   );
 };
