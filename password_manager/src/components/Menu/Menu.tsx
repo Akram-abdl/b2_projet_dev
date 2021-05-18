@@ -44,7 +44,7 @@ const Menu = (props: any) => {
 
   const items = [
     { text: "Identifications", icon: <ListAltIcon />, onClick: () => setCurrentPage(0), content: <Identifications user={props.user} /> },
-    { text: "Account", icon: <AccountCircleIcon />, onClick: () => setCurrentPage(1), content: <Account /> },
+    { text: "Account", icon: <AccountCircleIcon />, onClick: () => setCurrentPage(1), content: <Account user={props.user} /> },
     { text: "Settings", icon: <SettingsIcon />, onClick: () => setCurrentPage(2), content: <Settings /> },
   ];
 
