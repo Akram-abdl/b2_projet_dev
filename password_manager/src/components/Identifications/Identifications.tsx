@@ -25,6 +25,7 @@ const Identifications = (props: any) => {
 
   useEffect(() => {
     dispatch(getIdentifications(props.user?.result?._id));
+    console.log("up");
   }, [dispatch]);
 
   return (
@@ -37,15 +38,18 @@ const Identifications = (props: any) => {
         {!identifications || identifications.length === 0 ? (
           <Typography>No identification</Typography>
         ) : (
-          identifications.map((item: IIdentification) => (
-            <Grid item xs={12} sm={5} lg={4} key={item._id}>
-              <Identification currentIdentification={item} />
-            </Grid>
-          ))
+          identifications.map((item: IIdentification) => {
+            console.log("oui");
+            return (
+              <Grid item xs={12} sm={5} lg={4} key={item._id}>
+                <Identification user={props.user} currentIdentification={item} />
+              </Grid>
+            );
+          })
         )}
         {}
       </Grid>
-      <NewIdentificationDialog user={props.user?.result} open={dialogOpen} setDialogOpen={setDialogOpen} />
+      <NewIdentificationDialog user={props.user} open={dialogOpen} setDialogOpen={setDialogOpen} />
     </Box>
   );
 };

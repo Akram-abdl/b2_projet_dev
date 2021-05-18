@@ -36,7 +36,7 @@ const Home = () => {
 
   return (
     <Container component="main" className={classes.root}>
-      <Menu user={user} setUser={setUser} />
+      <Menu user={user?.result} setUser={setUser} />
     </Container>
   );
 };

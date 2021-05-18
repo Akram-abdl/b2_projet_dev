@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, Button, Dialog, DialogTitle, DialogContent, DialogActions } from "@material-ui/core";
-import AES from "crypto-js/aes";
+
+import CryptoJS from "crypto-js";
 
 import useStyles from "./styles";
 import Input from "../../Controls/Input";
@@ -12,8 +13,17 @@ import IIdentification from "../../../models/identification";
 const NewIdentificationDialog = (props: any) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  let passwordInitValue = "";
 
-  const initialFValues: IIdentification = { site: "", username: "", email: "", password: "" };
+  if (props?.currentIdentification)
+    passwordInitValue = CryptoJS.AES.decrypt(props.currentIdentification.password, props.user.passphrase).toString(CryptoJS.enc.Utf8);
+
+  const initialFValues: IIdentification = {
+    site: props.currentIdentification?.site || "",
+    username: props.currentIdentification?.username || "",
+    email: props.currentIdentification?.email || "",
+    password: passwordInitValue,
+  };
 
   const validateForm = (fieldValues: IIdentification = formValues) => {
     let errors = { ...formErrors };
@@ -39,15 +49,15 @@ const NewIdentificationDialog = (props: any) => {
   const handleDialogClose = (e: React.MouseEvent<any>) => {
     e.preventDefault();
 
-    resetForm();
     props.setDialogOpen(false);
+    resetForm();
   };
 
   const handleDialogSubmit = (e: React.MouseEvent<any>) => {
     e.preventDefault();
 
     if (validateForm()) {
-      const encryptedPassword = AES.encrypt(formValues.password, props.user.passphrase).toString();
+      const encryptedPassword = CryptoJS.AES.encrypt(formValues.password, props.user.passphrase).toString();
 
       if (props.currentIdentification) {
         dispatch(updateIdentification(props.currentIdentification._id, { ...formValues, password: encryptedPassword }));
@@ -55,12 +65,13 @@ const NewIdentificationDialog = (props: any) => {
         dispatch(createIdentification({ ...formValues, password: encryptedPassword }));
       }
       props.setDialogOpen(false);
+      resetForm();
     }
   };
 
   return (
     <Dialog open={props.open} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">New identification</DialogTitle>
+      <DialogTitle id="form-dialog-title">{props?.currentIdentification ? "Update identification" : "New identification"}</DialogTitle>
       <Form className={classes.form} noValidate>
         <DialogContent>
           <Grid container spacing={2}>
@@ -107,7 +118,7 @@ const NewIdentificationDialog = (props: any) => {
                 id="password"
                 name="password"
                 label="Password"
-                type="password"
+                type="text"
                 value={formValues.password}
                 autoComplete="password"
                 required={true}
@@ -123,7 +134,7 @@ const NewIdentificationDialog = (props: any) => {
             Cancel
           </Button>
           <Button onClick={handleDialogSubmit} color="primary">
-            Add
+            {props?.currentIdentification ? "Update" : "Add"}
           </Button>
         </DialogActions>
       </Form>
