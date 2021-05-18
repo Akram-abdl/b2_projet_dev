@@ -36,7 +36,7 @@ const Home = () => {
 
     const intervalId = setInterval(() => {
       checkUserLoggedTime();
-    }, 1000 * 5);
+    }, 30000);
 
     return () => clearInterval(intervalId);
   }, [user]);
