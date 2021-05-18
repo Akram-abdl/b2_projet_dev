@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Grid, Button, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from "@material-ui/core";
+import { Box, Typography, Grid, Button } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 
 import useStyles from "./styles";
@@ -39,7 +39,7 @@ const Identifications = (props: any) => {
           <Typography>No identification</Typography>
         ) : (
           identifications.map((item: IIdentification) => {
-            console.log("oui");
+            // console.log("oui");
             return (
               <Grid item xs={12} sm={5} lg={4} key={item._id}>
                 <Identification user={props.user} currentIdentification={item} />

@@ -39,7 +39,7 @@ const Home = () => {
     }, 30000);
 
     return () => clearInterval(intervalId);
-  }, [user]);
+  }, []);
 
   return (
     <Container component="main" className={classes.root}>

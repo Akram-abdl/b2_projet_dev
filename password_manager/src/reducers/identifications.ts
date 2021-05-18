@@ -1,7 +1,7 @@
 import actionTypes from "../constants/actionTypes";
 import IIdentification from "../models/identification";
 
-export default (identifications = [], action: any) => {
+const identification = (identifications = [], action: any) => {
   switch (action.type) {
     case actionTypes.FETCH_ALL:
       return action.payload;
@@ -15,3 +15,4 @@ export default (identifications = [], action: any) => {
       return identifications;
   }
 };
+export default identification;

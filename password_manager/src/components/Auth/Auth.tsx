@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Button, Grid, Typography, Container, Box, Avatar, TextField, Link, CssBaseline } from "@material-ui/core";
+import { Button, Grid, Typography, Container, Box, Avatar, Link } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { signin, signup } from "../../actions/auth";
 import { useForm, Form } from "../Controls/Form";
@@ -60,7 +60,7 @@ const Auth = () => {
       ...errors,
     });
 
-    if (fieldValues == formValues) return Object.values(errors).every((error) => error == "");
+    if (fieldValues === formValues) return Object.values(errors).every((error) => error === "");
   };
 
   const { formValues, setFormValues, formErrors, setFormErrors, handleInputChange, resetForm } = useForm(initialFValues, true, validateForm);

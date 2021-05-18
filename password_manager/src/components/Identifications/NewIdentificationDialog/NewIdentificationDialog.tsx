@@ -41,7 +41,7 @@ const NewIdentificationDialog = (props: any) => {
       ...errors,
     });
 
-    if (fieldValues == formValues) return Object.values(errors).every((error) => error == "");
+    if (fieldValues === formValues) return Object.values(errors).every((error) => error === "");
   };
 
   const { formValues, setFormValues, formErrors, setFormErrors, handleInputChange, resetForm } = useForm(initialFValues, true, validateForm);
@@ -61,6 +61,7 @@ const NewIdentificationDialog = (props: any) => {
 
       if (props.currentIdentification) {
         dispatch(updateIdentification(props.currentIdentification._id, { ...formValues, password: encryptedPassword }));
+        // dispatch(getIdentifications(props.user._id));
       } else {
         dispatch(createIdentification({ ...formValues, password: encryptedPassword }));
       }
