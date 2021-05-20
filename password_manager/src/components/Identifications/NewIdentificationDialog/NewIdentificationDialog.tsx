@@ -60,13 +60,14 @@ const NewIdentificationDialog = (props: any) => {
       const encryptedPassword = CryptoJS.AES.encrypt(formValues.password, props.user.passphrase).toString();
 
       if (props.currentIdentification) {
-        dispatch(updateIdentification(props.currentIdentification._id, { ...formValues, password: encryptedPassword }));
-        // dispatch(getIdentifications(props.user._id));
+        dispatch(
+          updateIdentification(props.currentIdentification._id, { ...formValues, _id: props.currentIdentification._id, password: encryptedPassword })
+        );
       } else {
         dispatch(createIdentification({ ...formValues, password: encryptedPassword }));
+        resetForm();
       }
       props.setDialogOpen(false);
-      resetForm();
     }
   };
 

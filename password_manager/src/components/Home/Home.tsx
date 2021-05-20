@@ -23,7 +23,6 @@ const Home = () => {
   useEffect(() => {
     function checkUserLoggedTime() {
       const token = user?.token;
-      console.log("check");
 
       if (token) {
         const decodedToken: any = decode(token);
