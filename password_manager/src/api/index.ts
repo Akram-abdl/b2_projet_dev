@@ -18,3 +18,5 @@ export const fetchIdentifications = (user_id: string) => API.get(`/identificatio
 export const createIdentification = (newIdentification: IIdentification) => API.post("/identifications", newIdentification);
 export const patchIdentification = (id: string, newIdentification: IIdentification) => API.patch(`/identifications/${id}`, newIdentification);
 export const deleteIdentification = (id: string) => API.delete(`/identifications/${id}`);
+
+export const searchSiteNameFromClearbit = (name: string) => axios.get(`https://autocomplete.clearbit.com/v1/companies/suggest/${name}`);

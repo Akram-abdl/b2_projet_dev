@@ -9,6 +9,7 @@
   "dependencies": {
     "@material-ui/core": "*",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "*",
     "@types/node": "^15.0.3",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",

@@ -1,11 +1,13 @@
 enum actionTypes {
-    FETCH_ALL,
-    CREATE,
-    PATCH,
-    DELETE,
+  FETCH_ALL,
+  CREATE,
+  PATCH,
+  DELETE,
 
-    AUTH,
-    LOGOUT
+  SEARCH_SITE_NAME,
+
+  AUTH,
+  LOGOUT,
 }
 
 export default actionTypes;

@@ -41,3 +41,14 @@ export const deleteIdentification = (id: string) => async (dispatch: any) => {
     console.log(error);
   }
 };
+
+export const searchSiteNameFromClearbit = (name: string) => async (dispatch: any) => {
+  try {
+    if (!name) return;
+    const { data } = await api.searchSiteNameFromClearbit(name);
+
+    dispatch({ type: actionTypes.SEARCH_SITE_NAME, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};

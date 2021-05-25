@@ -1,8 +1,9 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 
-import identifications from './identifications';
-import auth from './auth';
+import identifications from "./identifications";
+import auth from "./auth";
+import searchSitesName from "./searchSitesName";
 
-export const reducers = combineReducers({ identifications, auth });
+export const reducers = combineReducers({ identifications, auth, searchSitesName });
 
-export type RootState = ReturnType<typeof reducers>
+export type RootState = ReturnType<typeof reducers>;
