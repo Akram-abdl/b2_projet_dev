@@ -3,11 +3,11 @@ import { Box } from "@material-ui/core";
 
 export function useForm(initialFValues: any, validateOnChange: boolean = false, validateForm: (fieldValues: any) => any) {
   const initError = () => {
-    let res = { ...initialFValues };
-    for (let key in initialFValues) {
-      res[key] = "";
+    let errors = { ...initialFValues };
+    for (let idx in initialFValues) {
+      errors[idx] = "";
     }
-    return res;
+    return errors;
   };
 
   const [formValues, setFormValues] = useState(initialFValues);
@@ -22,6 +22,16 @@ export function useForm(initialFValues: any, validateOnChange: boolean = false, 
     if (validateOnChange) validateForm({ [name]: value });
   };
 
+  const handleInputChange2 = (e: any, newValue: any) => {
+    if (!e) return;
+    const { name } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: newValue,
+    });
+    if (validateOnChange) validateForm({ [name]: newValue });
+  };
+
   const resetForm = () => {
     setFormValues(initialFValues);
     setFormErrors({});
@@ -33,6 +43,7 @@ export function useForm(initialFValues: any, validateOnChange: boolean = false, 
     formErrors,
     setFormErrors,
     handleInputChange,
+    handleInputChange2,
     resetForm,
   };
 }

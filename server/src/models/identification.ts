@@ -6,6 +6,7 @@ interface IIdentification extends mongoose.Document {
   username: String;
   email: String;
   password: String;
+  icon: String;
   url: String;
 }
 
@@ -15,6 +16,7 @@ const identificationSchema = new mongoose.Schema({
   username: String,
   email: String,
   password: { type: String, required: true },
+  icon: String,
   url: String,
 });
 

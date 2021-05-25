@@ -3,7 +3,7 @@ import { Grid, Button, Dialog, DialogTitle, DialogContent, DialogActions } from 
 
 import IUser from "../../../models/user";
 import useStyles from "./styles";
-import Input from "../../Controls/Input";
+import { Input } from "../../Controls/Input";
 import { useForm, Form } from "../../Controls/Form";
 import { useDispatch } from "react-redux";
 

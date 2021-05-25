@@ -5,4 +5,5 @@ export default interface IIdentification {
   username: string;
   email: string;
   password: string;
+  icon: string;
 }

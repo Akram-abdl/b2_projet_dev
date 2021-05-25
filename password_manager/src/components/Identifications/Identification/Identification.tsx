@@ -29,7 +29,7 @@ const Identification = (props: any) => {
             setDialogOpen(true);
           }}
         >
-          <CardMedia className={classes.Media} image={identificationImg} title="Contemplative Reptile" />
+          <CardMedia className={classes.Media} image={props.currentIdentification.icon || identificationImg} title="Contemplative Reptile" />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h3">
               {props.currentIdentification.site}

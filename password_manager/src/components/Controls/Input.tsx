@@ -11,8 +11,8 @@ interface IInputProps {
   id: string;
   name: string;
   label: string;
-  onChange: (e: any) => void;
   error: string;
+  onChange?: (e: any) => void;
   type?: string;
   value?: string;
   autoComplete?: string;
@@ -21,9 +21,10 @@ interface IInputProps {
   autofocus?: boolean;
 }
 
-const Input = (props: IInputProps) => {
-  const args: AllPropsRequired<IInputProps> = {
+const setDefaultInputValue = (props: IInputProps) => {
+  return {
     ...props,
+    onChange: props.onChange !== undefined ? props.onChange : (e: any) => {},
     type: props.type !== undefined ? props.type : "text",
     value: props.value !== undefined ? props.value : "",
     autoComplete: props.autoComplete !== undefined ? props.autoComplete : "",
@@ -31,43 +32,47 @@ const Input = (props: IInputProps) => {
     fullWidth: props.fullWidth !== undefined ? props.fullWidth : false,
     autofocus: props.autofocus !== undefined ? props.autofocus : false,
   };
+};
+
+export const Input = (props: IInputProps) => {
+  const args: AllPropsRequired<IInputProps> = setDefaultInputValue(props);
 
   return (
     <TextField
-      id={props.id}
-      name={props.name}
-      label={props.label}
-      type={props.type}
-      value={props.value}
-      autoComplete={props.autoComplete}
+      id={args.id}
+      name={args.name}
+      label={args.label}
+      type={args.type}
+      value={args.value}
+      autoComplete={args.autoComplete}
       margin="normal"
       variant="outlined"
-      required={props.required}
-      fullWidth={props.fullWidth}
-      autoFocus={props.autofocus}
-      onChange={props.onChange}
-      {...(props.error && { error: true, helperText: props.error })}
+      required={args.required}
+      fullWidth={args.fullWidth}
+      autoFocus={args.autofocus}
+      onChange={args.onChange}
+      {...(args.error && { error: true, helperText: args.error })}
     />
   );
 };
 
-interface IInputSelectGroupedProps extends IInputProps {
+interface IInputAutocompleteProps extends IInputProps {
   selectItems: Array<any>;
+  onSelectTag: (e: any, value: any) => void;
+  onInputChange: (e: any, value: any) => void;
 }
 
-export const InputSelectGrouped = (props: IInputSelectGroupedProps) => {
-  const args: AllPropsRequired<IInputSelectGroupedProps> = {
+const setDefaultInputAutocompleteValue = (props: IInputAutocompleteProps) => {
+  return {
     ...props,
-    type: props.type !== undefined ? props.type : "text",
-    value: props.value !== undefined ? props.value : "",
-    autoComplete: props.autoComplete !== undefined ? props.autoComplete : "",
-    required: props.required !== undefined ? props.required : false,
-    fullWidth: props.fullWidth !== undefined ? props.fullWidth : false,
-    autofocus: props.autofocus !== undefined ? props.autofocus : false,
-    selectItems: props.selectItems !== undefined ? props.selectItems : [],
+    ...setDefaultInputValue(props),
   };
+};
 
-  const options = props.selectItems.map((option: any) => {
+export const InputAutocomplete = (props: IInputAutocompleteProps) => {
+  const args: AllPropsRequired<IInputAutocompleteProps> = setDefaultInputAutocompleteValue(props);
+
+  const options = args.selectItems.map((option: any) => {
     const firstLetter = option.name[0].toUpperCase();
     return {
       firstLetter: /[0-9]/.test(firstLetter) ? "0-9" : firstLetter,
@@ -77,32 +82,30 @@ export const InputSelectGrouped = (props: IInputSelectGroupedProps) => {
 
   return (
     <Autocomplete
-      id={`grouped-${props.id}`}
+      id={args.id}
       freeSolo
       disableClearable
       options={options.sort((a: any, b: any) => -b.firstLetter.localeCompare(a.firstLetter))}
       groupBy={(option: any) => option.firstLetter}
-      getOptionLabel={(option: any) => option.name}
+      getOptionLabel={(option: any) => option.name || args.name}
+      inputValue={args.value}
+      onInputChange={args.onInputChange}
+      onChange={args.onSelectTag}
       renderInput={(params: any) => (
         <TextField
           {...params}
-          id={props.id}
-          name={props.name}
-          label={props.label}
-          type={props.type}
-          value={props.value}
-          autoComplete={props.autoComplete}
+          name={args.name}
+          label={args.label}
+          type={args.type}
+          autoComplete={args.autoComplete}
           margin="normal"
           variant="outlined"
-          required={props.required}
-          fullWidth={props.fullWidth}
-          autoFocus={props.autofocus}
-          onChange={props.onChange}
-          {...(props.error && { error: true, helperText: props.error })}
+          required={args.required}
+          fullWidth={args.fullWidth}
+          autoFocus={args.autofocus}
+          {...(args.error && { error: true, helperText: args.error })}
         />
       )}
     />
   );
 };
-
-export default Input;

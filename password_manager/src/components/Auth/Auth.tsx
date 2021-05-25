@@ -5,7 +5,7 @@ import { Button, Grid, Typography, Container, Box, Avatar, Link } from "@materia
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { signin, signup } from "../../actions/auth";
 import { useForm, Form } from "../Controls/Form";
-import Input from "../Controls/Input";
+import { Input } from "../Controls/Input";
 
 import useStyles from "./styles";
 
