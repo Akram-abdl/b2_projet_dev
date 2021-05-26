@@ -27,6 +27,18 @@ export const signup = (formData: IUser, history: any) => async (dispatch: any) =
   }
 };
 
+export const updateUser = (user: IUser) => async (dispatch: any) => {
+  try {
+    const { data } = await api.patchUser(user);
+
+    console.log(data);
+
+    dispatch({ type: actionTypes.PATCH, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const logout = (setUser: any, history: any, dispatch: any) => {
   dispatch({ type: actionTypes.LOGOUT });
 

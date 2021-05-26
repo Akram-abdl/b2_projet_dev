@@ -50,14 +50,13 @@ export const signup = async (req: any, res: any) => {
 };
 
 export const patchUser = async (req: any, res: any) => {
-  const { id } = req.params;
-  const { name, email, password } = req.body;
+  const { name, email } = req.body;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No user with id: ${id}`);
+  if (!mongoose.Types.ObjectId.isValid(req.userId)) return res.status(404).send(`No user with id: ${req.userId}`);
 
-  const updatedUser = { name, email, password };
+  const updatedUser = { name, email };
 
-  await User.findByIdAndUpdate(id, updatedUser, { new: true });
+  await User.findByIdAndUpdate(req.userId, updatedUser);
 
   res.json(updatedUser);
 };

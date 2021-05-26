@@ -1,6 +1,8 @@
 import express from "express";
 
 import { signin, signup, patchUser, deleteUser } from "../controllers/users";
+import auth from "../middleware/auth";
+
 
 const router = express.Router();
 
@@ -9,7 +11,7 @@ const router = express.Router();
 router.post("/signin", signin);
 router.post("/signup", signup);
 
-router.patch("/:id", patchUser);
-router.delete("/:id", deleteUser);
+router.patch("/", auth, patchUser);
+router.delete("/", auth, deleteUser);
 
 export default router;

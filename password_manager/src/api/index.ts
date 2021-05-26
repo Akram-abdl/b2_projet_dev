@@ -13,6 +13,7 @@ API.interceptors.request.use((req) => {
 
 export const signIn = (formData: IUser) => API.post("/users/signin", formData);
 export const signUp = (formData: IUser) => API.post("/users/signup", formData);
+export const patchUser = (newUser: IUser) => API.patch(`/users`, newUser);
 
 export const fetchIdentifications = (user_id: string) => API.get(`/identifications/${user_id}`);
 export const createIdentification = (newIdentification: IIdentification) => API.post("/identifications", newIdentification);
