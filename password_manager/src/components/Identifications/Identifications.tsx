@@ -23,12 +23,6 @@ const Identifications = (props: any) => {
     setDialogOpen(true);
   };
 
-  const handleClickRefresh = (e: React.MouseEvent<any>) => {
-    e.preventDefault();
-
-    dispatch(getIdentifications(props.user?.result?._id));
-  };
-
   useEffect(() => {
     dispatch(getIdentifications(props.user?.result?._id));
   }, [dispatch]);
@@ -39,12 +33,9 @@ const Identifications = (props: any) => {
       <Button variant="outlined" color="primary" onClick={handleClickDialogOpen}>
         Add identification
       </Button>
-      <Button variant="outlined" color="primary" onClick={handleClickRefresh}>
-        Refresh
-      </Button>
       <Grid container spacing={2}>
         {!identifications || identifications.length === 0 ? (
-          <Typography>No identification</Typography>
+          null
         ) : (
           identifications.map((item: IIdentification) => {
             return (
